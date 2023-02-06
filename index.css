@@ -76,6 +76,10 @@ a {
 
 }
 
+.snakeSquare {
+  background-color: green;
+}
+
 
 #footer-parent {
   display: flex;
