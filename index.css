@@ -51,15 +51,6 @@ a {
 }
 
 
-#footer-parent {
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: center;
-  grid-row: 2;
-  grid-column: 1;
-}
-
 #header-parent {
   background-color: white;
   display: flex;
@@ -74,3 +65,23 @@ a {
   flex-grow: 1;
 }
 
+#game-content {
+  display: grid;
+  grid-template-columns: repeat(40, 1fr);
+  grid-template-rows: repeat(28, 1fr);
+}
+
+.box {
+  border: solid 1px black;
+
+}
+
+
+#footer-parent {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  grid-row: 2;
+  grid-column: 1;
+}
