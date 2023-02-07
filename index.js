@@ -10,6 +10,9 @@ const numberOfBoxes = numberOfColsForLargeScreen * numberOfRowsForLargeScreen;
 let snakeStartXPos = 20;
 let snakeStartYPos = 14;
 
+let stateGameOver = false;
+let stateRunning = 'not running';
+
 const boxMapToPos = {};
 const posMapToBox = {};
 
@@ -45,9 +48,33 @@ function getBoxNumber(element) {
   return Number(element.id.slice(4));
 }
 
-// test
-let snake = new Snake(snakeStartXPos, snakeStartYPos, [boxMapToPos, posMapToBox]);
+let snake = new Snake(
+  snakeStartXPos,
+  snakeStartYPos,
+  [boxMapToPos, posMapToBox],
+  [numberOfColsForLargeScreen, numberOfRowsForLargeScreen]
+);
 
-snake.moveSnake('south');
-snake.moveSnake('south');
-snake.moveSnake('south');
+let gameLoop;
+
+function runGameLoop() {
+  console.log('gameloop running')
+  const checkGameOver = snake.moveSnake('east');
+  if (checkGameOver === true) {
+    stateGameOver = true;
+    stateRunning = 'not running';
+    clearInterval(gameLoop);
+  }
+}
+
+function startHandler() {
+  if (stateRunning !== 'running') {
+    gameLoop = setInterval(runGameLoop, 500);
+    stateRunning = 'running';
+    stateGameOver = false;
+  }
+}
+
+const startButton = document.querySelector('#start-button');
+
+startButton.addEventListener('click', startHandler);

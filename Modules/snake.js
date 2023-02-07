@@ -1,8 +1,9 @@
 export default class Snake {
-  constructor(startX, startY, boxMaps) {
+  constructor(startX, startY, boxMaps, gridDimensions) {
     this.body = [];
     this.length = 4;
     [this.boxMapToPos, this.posMapToBox] = boxMaps;
+    [this.numberOfCols, this.numberOfRows] = gridDimensions;
 
     this.createSnakeBody(startX, startY);
   }
@@ -52,20 +53,35 @@ export default class Snake {
       newSegment.y = firstSegment.y;
     }
 
+    // Returns game over check
+    if (
+      newSegment.x < 1
+      || newSegment.x > this.numberOfCols
+      || newSegment.y < 1
+      || newSegment.y > this.numberOfRows
+    ) {
+      return true;
+    }
+
     this.body.unshift(newSegment);
     this.removeLastSegment(1);
     this.drawSnake();
+
+    return false;
   }
 
   removeLastSegment(numberOfTimes) {
     for (let i = 0; i < numberOfTimes; i += 1) {
       const lastSegment = this.body.pop();
-      console.log(lastSegment);
 
       const boxID = this.posMapToBox[`${lastSegment.x},${lastSegment.y}`];
       const domBox = document.querySelector(`#${boxID}`);
       domBox.classList.remove('snake-square');
     }
+  }
+
+  getLengthOfSnake() {
+    return this.body.length;
   }
 }
 
