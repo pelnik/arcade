@@ -14,6 +14,7 @@ let gameSpeed = 100;
 
 const maxApples = 40;
 const currentApples = [];
+let growthIndicator = 0;
 let points = 0;
 
 const boxMapToPos = {};
@@ -111,8 +112,6 @@ function keyupHandler(evt) {
     currentKeypress = keypressStack[keypressStack.length - 1];
   }
 
-  console.log('stack', keypressStack, 'currentkeypress', currentKeypress);
-
   return null;
 }
 
@@ -168,6 +167,7 @@ function removeApple(index) {
   currentApples.splice(index, 1);
   points += 1;
   pointsElement.innerText = `Points: ${points}`;
+  growthIndicator = 1;
 }
 
 // Game loop logic
@@ -176,7 +176,8 @@ let gameLoop;
 function runGameLoop() {
   console.log('gameloop running');
 
-  const checkGameOver = snake.moveSnake(currentKeypress, currentApples);
+  const checkGameOver = snake.moveSnake(currentKeypress, growthIndicator);
+  growthIndicator = 0;
   checkIfAppleCollision(snake);
 
   generateApples();

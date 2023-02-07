@@ -42,7 +42,7 @@ export default class Snake {
     }
   }
 
-  moveSnake(direction, currentApples) {
+  moveSnake(direction, growthIndicator) {
     const firstSegment = this.body[0];
     const newSegment = {};
     let actualDirection = direction;
@@ -68,7 +68,9 @@ export default class Snake {
       return false;
     }
 
-    this.removeLastSegment(1);
+    if (growthIndicator !== 1) {
+      this.removeLastSegment(1);
+    }
 
     // Returns game over check
     if (
