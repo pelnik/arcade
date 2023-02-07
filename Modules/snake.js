@@ -33,6 +33,40 @@ export default class Snake {
       domBox.classList.add('snake-square');
     }
   }
+
+  moveSnake(direction) {
+    const firstSegment = this.body[0];
+    const newSegment = {};
+
+    if (direction === 'north') {
+      newSegment.x = firstSegment.x;
+      newSegment.y = firstSegment.y - 1;
+    } else if (direction === 'east') {
+      newSegment.x = firstSegment.x + 1;
+      newSegment.y = firstSegment.y;
+    } else if (direction === 'south') {
+      newSegment.x = firstSegment.x;
+      newSegment.y = firstSegment.y + 1;
+    } else if (direction === 'west') {
+      newSegment.x = firstSegment.x - 1;
+      newSegment.y = firstSegment.y;
+    }
+
+    this.body.unshift(newSegment);
+    this.removeLastSegment(1);
+    this.drawSnake();
+  }
+
+  removeLastSegment(numberOfTimes) {
+    for (let i = 0; i < numberOfTimes; i += 1) {
+      const lastSegment = this.body.pop();
+      console.log(lastSegment);
+
+      const boxID = this.posMapToBox[`${lastSegment.x},${lastSegment.y}`];
+      const domBox = document.querySelector(`#${boxID}`);
+      domBox.classList.remove('snake-square');
+    }
+  }
 }
 
 console.log('Snake working');

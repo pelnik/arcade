@@ -46,4 +46,8 @@ function getBoxNumber(element) {
 }
 
 // test
-new Snake(snakeStartXPos, snakeStartYPos, [boxMapToPos, posMapToBox]);
+let snake = new Snake(snakeStartXPos, snakeStartYPos, [boxMapToPos, posMapToBox]);
+
+snake.moveSnake('south');
+snake.moveSnake('south');
+snake.moveSnake('south');
