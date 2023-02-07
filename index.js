@@ -1,4 +1,4 @@
-import Snake from '/Modules/snake.js';
+import Snake from './Modules/snake.js';
 
 const gameContentElement = document.querySelector('#game-content');
 
@@ -7,8 +7,8 @@ const numberOfColsForLargeScreen = 40;
 const numberOfRowsForLargeScreen = 28;
 const numberOfBoxes = numberOfColsForLargeScreen * numberOfRowsForLargeScreen;
 
-let snakeStartXPos = numberOfRowsForLargeScreen;
-let snakeStartYPos = numberOfColsForLargeScreen;
+let snakeStartXPos = 20;
+let snakeStartYPos = 14;
 
 const boxMapToPos = {};
 const posMapToBox = {};
@@ -46,4 +46,4 @@ function getBoxNumber(element) {
 }
 
 // test
-new Snake();
+new Snake(snakeStartXPos, snakeStartYPos, [boxMapToPos, posMapToBox]);
