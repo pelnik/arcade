@@ -4,6 +4,13 @@ export default class Snake {
     this.length = 4;
     [this.boxMapToPos, this.posMapToBox] = boxMaps;
     [this.numberOfCols, this.numberOfRows] = gridDimensions;
+    this.lastMove = 'east';
+    this.moveOpposites = {
+      north: 'south',
+      east: 'west',
+      south: 'north',
+      west: 'east',
+    };
 
     this.createSnakeBody(startX, startY);
   }
@@ -38,19 +45,28 @@ export default class Snake {
   moveSnake(direction) {
     const firstSegment = this.body[0];
     const newSegment = {};
+    let actualDirection = direction;
+    const oppositeOfLastMove = this.moveOpposites[this.lastMove];
+    console.log('lastmove', this.lastMove, 'oppositeOfLastMove', oppositeOfLastMove);
 
-    if (direction === 'north') {
+    if (direction === null || oppositeOfLastMove === direction) {
+      actualDirection = this.lastMove;
+    }
+
+    if (actualDirection === 'north') {
       newSegment.x = firstSegment.x;
       newSegment.y = firstSegment.y - 1;
-    } else if (direction === 'east') {
+    } else if (actualDirection === 'east') {
       newSegment.x = firstSegment.x + 1;
       newSegment.y = firstSegment.y;
-    } else if (direction === 'south') {
+    } else if (actualDirection === 'south') {
       newSegment.x = firstSegment.x;
       newSegment.y = firstSegment.y + 1;
-    } else if (direction === 'west') {
+    } else if (actualDirection === 'west') {
       newSegment.x = firstSegment.x - 1;
       newSegment.y = firstSegment.y;
+    } else if (actualDirection === null) {
+      return false;
     }
 
     // Returns game over check
@@ -63,6 +79,7 @@ export default class Snake {
       return true;
     }
 
+    this.lastMove = actualDirection;
     this.body.unshift(newSegment);
     this.removeLastSegment(1);
     this.drawSnake();

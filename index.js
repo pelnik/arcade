@@ -56,7 +56,7 @@ let snake = new Snake(
 );
 
 // Keypress Monitoring logic
-let currentKeypress;
+let currentKeypress = null;
 const keypressStack = [];
 const keypressDict = {
   38: 'north',
@@ -115,7 +115,7 @@ let gameLoop;
 function runGameLoop() {
   console.log('gameloop running');
 
-  const checkGameOver = snake.moveSnake('east');
+  const checkGameOver = snake.moveSnake(currentKeypress);
   if (checkGameOver === true) {
     stateGameOver = true;
     stateRunning = 'not running';
