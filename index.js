@@ -13,6 +13,8 @@ let snakeStartYPos = 14;
 let stateGameOver = false;
 let stateRunning = 'not running';
 
+const maxApples = 10;
+
 const boxMapToPos = {};
 const posMapToBox = {};
 
@@ -109,6 +111,33 @@ function keyupHandler(evt) {
 window.addEventListener('keydown', keydownHandler);
 window.addEventListener('keyup', keyupHandler);
 
+// This will handle the logic of the apples
+function generateApples() {
+  const randomNum = Math.random();
+
+  if (randomNum <= 0.25) {
+    addApple();
+  }
+}
+
+function addApple() {
+  let flag = false;
+
+  while (flag === false) {
+    const appleLoc = {};
+    appleLoc.x = Math.ceil(Math.random() * numberOfColsForLargeScreen);
+    appleLoc.y = Math.ceil(Math.random() * numberOfRowsForLargeScreen);
+
+    if (snake.checkCollisionWithBody(appleLoc) === false) {
+      flag = true;
+      const boxId = posMapToBox[`${appleLoc.x},${appleLoc.y}`];
+      const boxElement = document.querySelector(`#${boxId}`);
+
+      boxElement.classList.add('apple-square');
+    }
+  }
+}
+
 // Game loop logic
 let gameLoop;
 
@@ -116,6 +145,7 @@ function runGameLoop() {
   console.log('gameloop running');
 
   const checkGameOver = snake.moveSnake(currentKeypress);
+  generateApples();
   if (checkGameOver === true) {
     stateGameOver = true;
     stateRunning = 'not running';

@@ -80,6 +80,10 @@ a {
   background-color: green;
 }
 
+.apple-square {
+  background-color: red;
+}
+
 
 #footer-parent {
   display: flex;
