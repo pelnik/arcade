@@ -5,12 +5,13 @@ const gameContentElement = document.querySelector('#game-content');
 const largeScreenCutoff = 768;
 const numberOfColsForLargeScreen = 40;
 const numberOfRowsForLargeScreen = 28;
-const numberOfBoxes = 40 * 28;
+const numberOfBoxes = numberOfColsForLargeScreen * numberOfRowsForLargeScreen;
 
 let snakeStartXPos = numberOfRowsForLargeScreen;
 let snakeStartYPos = numberOfColsForLargeScreen;
 
 const boxMapToPos = {};
+const posMapToBox = {};
 
 // Box ids start from one
 if (window.screen.width > largeScreenCutoff) {
@@ -22,23 +23,27 @@ if (window.screen.width > largeScreenCutoff) {
   }
 }
 
-// Map boxes to X and Y values
+// Map boxes to X and Y values and do the reverse as well
 for (let i = 1; i <= numberOfBoxes; i += 1) {
   const xyObject = {};
 
-  xyObject.x = i % numberOfColsForLargeScreen;
-  xyObject.y = Math.ceil(i / numberOfRowsForLargeScreen);
+  let x = i % numberOfColsForLargeScreen;
+  const y = Math.ceil(i / numberOfColsForLargeScreen);
+
+  if (Math.round(x) === 0) {
+    x = numberOfColsForLargeScreen;
+  }
+
+  xyObject.x = x;
+  xyObject.y = y;
 
   boxMapToPos[`box-${i}`] = xyObject;
+  posMapToBox[`${x},${y}`] = `box-${i}`;
 }
-
-console.log(boxMapToPos);
-
-// Need to actually reverse map this somehow
 
 function getBoxNumber(element) {
   return Number(element.id.slice(4));
 }
 
-
+// test
 new Snake();
