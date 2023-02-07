@@ -1,7 +1,7 @@
 export default class Snake {
   constructor(startX, startY, boxMaps, gridDimensions) {
     this.body = [];
-    this.length = 4;
+    this.length = 6;
     [this.boxMapToPos, this.posMapToBox] = boxMaps;
     [this.numberOfCols, this.numberOfRows] = gridDimensions;
     this.lastMove = 'east';
@@ -47,7 +47,6 @@ export default class Snake {
     const newSegment = {};
     let actualDirection = direction;
     const oppositeOfLastMove = this.moveOpposites[this.lastMove];
-    console.log('lastmove', this.lastMove, 'oppositeOfLastMove', oppositeOfLastMove);
 
     if (direction === null || oppositeOfLastMove === direction) {
       actualDirection = this.lastMove;
@@ -69,20 +68,34 @@ export default class Snake {
       return false;
     }
 
+    this.removeLastSegment(1);
+
     // Returns game over check
     if (
       newSegment.x < 1
       || newSegment.x > this.numberOfCols
       || newSegment.y < 1
       || newSegment.y > this.numberOfRows
+      || this.checkCollisionWithBody(newSegment) === true
     ) {
       return true;
     }
 
     this.lastMove = actualDirection;
     this.body.unshift(newSegment);
-    this.removeLastSegment(1);
     this.drawSnake();
+
+    return false;
+  }
+
+  checkCollisionWithBody(newSegment) {
+    for (let i = 0; i < this.body.length; i += 1) {
+      const currentSegment = this.body[i];
+
+      if (currentSegment.x === newSegment.x && currentSegment.y === newSegment.y) {
+        return true;
+      }
+    }
 
     return false;
   }
@@ -101,5 +114,3 @@ export default class Snake {
     return this.body.length;
   }
 }
-
-console.log('Snake working');
