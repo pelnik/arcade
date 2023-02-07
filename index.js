@@ -55,10 +55,66 @@ let snake = new Snake(
   [numberOfColsForLargeScreen, numberOfRowsForLargeScreen]
 );
 
+// Keypress Monitoring logic
+let currentKeypress;
+const keypressStack = [];
+const keypressDict = {
+  38: 'north',
+  39: 'east',
+  40: 'south',
+  37: 'west',
+};
+
+function keydownHandler(evt) {
+  let direction;
+  if (evt.keyCode in keypressDict) {
+    direction = keypressDict[evt.keyCode];
+  } else {
+    return null;
+  }
+
+  if (!(keypressStack.includes(direction))) {
+    keypressStack.push(direction);
+    currentKeypress = direction;
+  }
+
+  return null;
+}
+
+function keyupHandler(evt) {
+  let direction;
+  if (evt.keyCode in keypressDict) {
+    direction = keypressDict[evt.keyCode];
+  } else {
+    return null;
+  }
+
+  const stackIndex = keypressStack.indexOf(direction);
+
+  if (stackIndex !== -1) {
+    keypressStack.splice(stackIndex, 1);
+  }
+
+  if (keypressStack.length === 0) {
+    currentKeypress = null;
+  } else {
+    currentKeypress = keypressStack[keypressStack.length - 1];
+  }
+
+  console.log('stack', keypressStack, 'currentkeypress', currentKeypress);
+
+  return null;
+}
+
+window.addEventListener('keydown', keydownHandler);
+window.addEventListener('keyup', keyupHandler);
+
+// Game loop logic
 let gameLoop;
 
 function runGameLoop() {
-  console.log('gameloop running')
+  console.log('gameloop running');
+
   const checkGameOver = snake.moveSnake('east');
   if (checkGameOver === true) {
     stateGameOver = true;
