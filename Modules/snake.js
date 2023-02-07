@@ -42,7 +42,7 @@ export default class Snake {
     }
   }
 
-  moveSnake(direction) {
+  moveSnake(direction, currentApples) {
     const firstSegment = this.body[0];
     const newSegment = {};
     let actualDirection = direction;
@@ -112,5 +112,9 @@ export default class Snake {
 
   getLengthOfSnake() {
     return this.body.length;
+  }
+
+  getSnakeSegments() {
+    return this.body;
   }
 }

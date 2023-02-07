@@ -1,7 +1,5 @@
 import Snake from './Modules/snake.js';
 
-const gameContentElement = document.querySelector('#game-content');
-
 const largeScreenCutoff = 768;
 const numberOfColsForLargeScreen = 40;
 const numberOfRowsForLargeScreen = 28;
@@ -12,11 +10,17 @@ let snakeStartYPos = 14;
 
 let stateGameOver = false;
 let stateRunning = 'not running';
+let gameSpeed = 100;
 
-const maxApples = 10;
+const maxApples = 40;
+const currentApples = [];
+let points = 0;
 
 const boxMapToPos = {};
 const posMapToBox = {};
+
+const gameContentElement = document.querySelector('#game-content');
+const pointsElement = document.querySelector('#points');
 
 // Box ids start from one
 if (window.screen.width > largeScreenCutoff) {
@@ -46,8 +50,12 @@ for (let i = 1; i <= numberOfBoxes; i += 1) {
   posMapToBox[`${x},${y}`] = `box-${i}`;
 }
 
-function getBoxNumber(element) {
-  return Number(element.id.slice(4));
+// Pass in an object with .x and .y properties to get the box element
+function getBoxElement(xyObject) {
+  const boxId = posMapToBox[`${xyObject.x},${xyObject.y}`];
+  const boxElement = document.querySelector(`#${boxId}`);
+
+  return boxElement;
 }
 
 let snake = new Snake(
@@ -115,7 +123,7 @@ window.addEventListener('keyup', keyupHandler);
 function generateApples() {
   const randomNum = Math.random();
 
-  if (randomNum <= 0.25) {
+  if (randomNum <= 0.25 && currentApples.length < maxApples) {
     addApple();
   }
 }
@@ -134,8 +142,32 @@ function addApple() {
       const boxElement = document.querySelector(`#${boxId}`);
 
       boxElement.classList.add('apple-square');
+      currentApples.push(appleLoc);
     }
   }
+}
+
+function checkIfAppleCollision(gameSnake) {
+  for (let i = 0; i < currentApples.length; i += 1) {
+    const newSnakeSegment = gameSnake.getSnakeSegments()[0];
+    const apple = currentApples[i];
+
+    if (apple.x === newSnakeSegment.x && apple.y === newSnakeSegment.y) {
+      removeApple(i);
+      break;
+    }
+  }
+}
+
+function removeApple(index) {
+  const currentApple = currentApples[index];
+  const boxElement = getBoxElement(currentApple);
+
+  boxElement.classList.remove('apple-square');
+
+  currentApples.splice(index, 1);
+  points += 1;
+  pointsElement.innerText = `Points: ${points}`;
 }
 
 // Game loop logic
@@ -144,7 +176,9 @@ let gameLoop;
 function runGameLoop() {
   console.log('gameloop running');
 
-  const checkGameOver = snake.moveSnake(currentKeypress);
+  const checkGameOver = snake.moveSnake(currentKeypress, currentApples);
+  checkIfAppleCollision(snake);
+
   generateApples();
   if (checkGameOver === true) {
     stateGameOver = true;
@@ -155,7 +189,7 @@ function runGameLoop() {
 
 function startHandler() {
   if (stateRunning !== 'running') {
-    gameLoop = setInterval(runGameLoop, 500);
+    gameLoop = setInterval(runGameLoop, gameSpeed);
     stateRunning = 'running';
     stateGameOver = false;
   }
