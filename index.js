@@ -8,9 +8,15 @@ const numberOfBoxes = numberOfColsForLargeScreen * numberOfRowsForLargeScreen;
 let snakeStartXPos = 20;
 let snakeStartYPos = 14;
 
+const gameSpeeds = {
+  Easy: 150,
+  Medium: 100,
+  Hard: 75,
+};
+
 let stateGameOver = false;
 let stateRunning = 'not running';
-let gameSpeed = 100;
+let gameSpeed = gameSpeeds.Medium;
 let stateHasStartedOnce = false;
 
 const maxApples = 40;
@@ -23,6 +29,7 @@ const posMapToBox = {};
 
 const gameContentElement = document.querySelector('#game-content');
 const pointsElement = document.querySelector('#points');
+const difficultyElement = document.querySelector('#select-difficulty');
 
 // Box ids start from one
 if (window.screen.width > largeScreenCutoff) {
@@ -187,6 +194,12 @@ function clearApples() {
 // Game loop logic
 let gameLoop;
 
+function endGame() {
+  stateGameOver = true;
+  stateRunning = 'not running';
+  clearInterval(gameLoop);
+}
+
 function runGameLoop() {
   console.log('gameloop running');
 
@@ -196,12 +209,18 @@ function runGameLoop() {
 
   generateApples();
   if (checkGameOver === true) {
-    stateGameOver = true;
-    stateRunning = 'not running';
-    clearInterval(gameLoop);
+    endGame();
   }
 }
 
+function startGame() {
+  gameLoop = setInterval(runGameLoop, gameSpeed);
+  stateRunning = 'running';
+  stateGameOver = false;
+  stateHasStartedOnce = true;
+}
+
+// used when the game is not running
 function restartGame() {
   snake.deleteSnake();
   clearApples();
@@ -213,23 +232,23 @@ function restartGame() {
     [numberOfColsForLargeScreen, numberOfRowsForLargeScreen],
   );
 
-  gameLoop = setInterval(runGameLoop, gameSpeed);
-  stateRunning = 'running';
-  stateGameOver = false;
-  stateHasStartedOnce = true;
+  startGame();
 }
 
 function startHandler() {
   if (stateRunning !== 'running' && stateHasStartedOnce === false) {
-    gameLoop = setInterval(runGameLoop, gameSpeed);
-    stateRunning = 'running';
-    stateGameOver = false;
-    stateHasStartedOnce = true;
+    startGame();
   } else if (stateRunning !== 'running' && stateHasStartedOnce === true) {
     restartGame();
   }
 }
 
 const startButton = document.querySelector('#start-button');
-
 startButton.addEventListener('click', startHandler);
+
+// Event listener setup for difficulty
+function changeDifficulty(evt) {
+  gameSpeed = gameSpeeds[evt.target.value];
+}
+
+difficultyElement.addEventListener('change', changeDifficulty);
