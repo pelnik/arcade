@@ -11,6 +11,7 @@ let snakeStartYPos = 14;
 let stateGameOver = false;
 let stateRunning = 'not running';
 let gameSpeed = 100;
+let stateHasStartedOnce = false;
 
 const maxApples = 40;
 const currentApples = [];
@@ -63,8 +64,8 @@ let snake = new Snake(
   snakeStartXPos,
   snakeStartYPos,
   [boxMapToPos, posMapToBox],
-  [numberOfColsForLargeScreen, numberOfRowsForLargeScreen]
-);
+  [numberOfColsForLargeScreen, numberOfRowsForLargeScreen],
+)
 
 // Keypress Monitoring logic
 let currentKeypress = null;
@@ -146,18 +147,6 @@ function addApple() {
   }
 }
 
-function checkIfAppleCollision(gameSnake) {
-  for (let i = 0; i < currentApples.length; i += 1) {
-    const newSnakeSegment = gameSnake.getSnakeSegments()[0];
-    const apple = currentApples[i];
-
-    if (apple.x === newSnakeSegment.x && apple.y === newSnakeSegment.y) {
-      removeApple(i);
-      break;
-    }
-  }
-}
-
 function removeApple(index) {
   const currentApple = currentApples[index];
   const boxElement = getBoxElement(currentApple);
@@ -168,6 +157,18 @@ function removeApple(index) {
   points += 1;
   pointsElement.innerText = `Points: ${points}`;
   growthIndicator = 1;
+}
+
+function checkIfAppleCollision(gameSnake) {
+  for (let i = 0; i < currentApples.length; i += 1) {
+    const newSnakeSegment = gameSnake.getSnakeSegments()[0];
+    const apple = currentApples[i];
+
+    if (apple.x === newSnakeSegment.x && apple.y === newSnakeSegment.y) {
+      removeApple(i);
+      break;
+    }
+  }
 }
 
 // Game loop logic
@@ -188,11 +189,30 @@ function runGameLoop() {
   }
 }
 
+function restartGame() {
+  snake.deleteSnake();
+
+  snake = new Snake(
+    snakeStartXPos,
+    snakeStartYPos,
+    [boxMapToPos, posMapToBox],
+    [numberOfColsForLargeScreen, numberOfRowsForLargeScreen],
+  );
+
+  gameLoop = setInterval(runGameLoop, gameSpeed);
+  stateRunning = 'running';
+  stateGameOver = false;
+  stateHasStartedOnce = true;
+}
+
 function startHandler() {
-  if (stateRunning !== 'running') {
+  if (stateRunning !== 'running' && stateHasStartedOnce === false) {
     gameLoop = setInterval(runGameLoop, gameSpeed);
     stateRunning = 'running';
     stateGameOver = false;
+    stateHasStartedOnce = true;
+  } else if (stateRunning !== 'running' && stateHasStartedOnce === true) {
+    restartGame();
   }
 }
 

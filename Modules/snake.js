@@ -112,6 +112,20 @@ export default class Snake {
     }
   }
 
+  cleanUpSegment(segment) {
+    const boxElementId = this.posMapToBox[`${segment.x},${segment.y}`];
+    const boxElement = document.querySelector(`#${boxElementId}`);
+
+    boxElement.classList.remove('snake-square');
+  }
+
+  deleteSnake() {
+    while (this.body.length > 0) {
+      const segment = this.body.pop();
+      this.cleanUpSegment(segment);
+    }
+  }
+
   getLengthOfSnake() {
     return this.body.length;
   }
