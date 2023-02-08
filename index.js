@@ -171,6 +171,19 @@ function checkIfAppleCollision(gameSnake) {
   }
 }
 
+function deleteApple(apple) {
+  const boxElement = getBoxElement(apple);
+
+  boxElement.classList.remove('apple-square');
+}
+
+function clearApples() {
+  while (currentApples.length > 0) {
+    const currentApple = currentApples.pop();
+    deleteApple(currentApple);
+  }
+}
+
 // Game loop logic
 let gameLoop;
 
@@ -191,6 +204,7 @@ function runGameLoop() {
 
 function restartGame() {
   snake.deleteSnake();
+  clearApples();
 
   snake = new Snake(
     snakeStartXPos,
