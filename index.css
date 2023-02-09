@@ -65,6 +65,18 @@ a {
   flex-grow: 1;
 }
 
+#stats-parent {
+  display: flex;
+  justify-content:space-around;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  padding: 5px;
+}
+
+#stats-parent > * {
+  text-align: center;
+}
+
 #game-content {
   display: grid;
   grid-template-columns: repeat(40, 1fr);

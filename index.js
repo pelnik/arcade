@@ -23,6 +23,7 @@ const maxApples = 40;
 const currentApples = [];
 let growthIndicator = 0;
 let points = 0;
+let pointsHistory = [];
 
 const boxMapToPos = {};
 const posMapToBox = {};
@@ -30,6 +31,10 @@ const posMapToBox = {};
 const gameContentElement = document.querySelector('#game-content');
 const pointsElement = document.querySelector('#points');
 const difficultyElement = document.querySelector('#select-difficulty');
+const statsParentElement = document.querySelector('#statsParent');
+const highestPointsElement = document.querySelector('#highest-points');
+const averagePointsElement = document.querySelector('#average-points');
+const lowestPointsElement = document.querySelector('#lowest-points');
 
 // Box ids start from one
 if (window.screen.width > largeScreenCutoff) {
@@ -191,6 +196,32 @@ function clearApples() {
   }
 }
 
+// Stats handling
+
+function addStatHistory(score) {
+  pointsHistory.push(score);
+
+}
+
+function updateStatsElement() {
+  const highestPoints = Math.max(...pointsHistory);
+  const averagePoints = pointsHistory.reduce((total, gamePoints) => {
+    let acc = total;
+    acc += gamePoints;
+
+    return acc;
+  }) / pointsHistory.length;
+  const lowestPoints = Math.min(...pointsHistory);
+
+  lowestPointsElement.innerText = `Lowest Points: ${lowestPoints}`;
+  averagePointsElement.innerText = `Average Points: ${averagePoints.toFixed(2)}`;
+  highestPointsElement.innerText = `Highest Points: ${highestPoints}`;
+}
+
+function clearCurrentPoints() {
+  score = 0;
+}
+
 // Game loop logic
 let gameLoop;
 
@@ -198,6 +229,9 @@ function endGame() {
   stateGameOver = true;
   stateRunning = 'not running';
   clearInterval(gameLoop);
+  addStatHistory(points);
+  updateStatsElement();
+  clearCurrentPoints();
 }
 
 function runGameLoop() {
