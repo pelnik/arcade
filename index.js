@@ -5,8 +5,8 @@ const numberOfColsForLargeScreen = 40;
 const numberOfRowsForLargeScreen = 28;
 const numberOfBoxes = numberOfColsForLargeScreen * numberOfRowsForLargeScreen;
 
-let snakeStartXPos = 20;
-let snakeStartYPos = 14;
+const snakeStartXPos = 20;
+const snakeStartYPos = 14;
 
 const gameSpeeds = {
   Easy: 150,
@@ -23,7 +23,7 @@ const maxApples = 40;
 const currentApples = [];
 let growthIndicator = 0;
 let points = 0;
-let pointsHistory = [];
+const pointsHistory = [];
 
 const boxMapToPos = {};
 const posMapToBox = {};
@@ -31,7 +31,6 @@ const posMapToBox = {};
 const gameContentElement = document.querySelector('#game-content');
 const pointsElement = document.querySelector('#points');
 const difficultyElement = document.querySelector('#select-difficulty');
-const statsParentElement = document.querySelector('#statsParent');
 const highestPointsElement = document.querySelector('#highest-points');
 const averagePointsElement = document.querySelector('#average-points');
 const lowestPointsElement = document.querySelector('#lowest-points');
@@ -77,7 +76,7 @@ let snake = new Snake(
   snakeStartYPos,
   [boxMapToPos, posMapToBox],
   [numberOfColsForLargeScreen, numberOfRowsForLargeScreen],
-)
+);
 
 // Keypress Monitoring logic
 let currentKeypress = null;
@@ -132,14 +131,6 @@ window.addEventListener('keydown', keydownHandler);
 window.addEventListener('keyup', keyupHandler);
 
 // This will handle the logic of the apples
-function generateApples() {
-  const randomNum = Math.random();
-
-  if (randomNum <= 0.25 && currentApples.length < maxApples) {
-    addApple();
-  }
-}
-
 function addApple() {
   let flag = false;
 
@@ -156,6 +147,14 @@ function addApple() {
       boxElement.classList.add('apple-square');
       currentApples.push(appleLoc);
     }
+  }
+}
+
+function generateApples() {
+  const randomNum = Math.random();
+
+  if (randomNum <= 0.25 && currentApples.length < maxApples) {
+    addApple();
   }
 }
 
@@ -200,7 +199,6 @@ function clearApples() {
 
 function addStatHistory(score) {
   pointsHistory.push(score);
-
 }
 
 function updateStatsElement() {
@@ -219,7 +217,7 @@ function updateStatsElement() {
 }
 
 function clearCurrentPoints() {
-  score = 0;
+  points = 0;
 }
 
 // Game loop logic
@@ -236,8 +234,6 @@ function endGame() {
 }
 
 function runGameLoop() {
-  console.log('gameloop running');
-
   const checkGameOver = snake.moveSnake(currentKeypress, growthIndicator);
   growthIndicator = 0;
   checkIfAppleCollision(snake);
