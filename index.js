@@ -1,11 +1,11 @@
 import Snake from './Modules/snake.js';
 
 const largeScreenCutoff = 768;
-const numberOfColsForLargeScreen = 40;
+const numberOfColsForLargeScreen = 80;
 const numberOfRowsForLargeScreen = 28;
 const numberOfBoxes = numberOfColsForLargeScreen * numberOfRowsForLargeScreen;
 
-const snakeStartXPos = 20;
+const snakeStartXPos = 40;
 const snakeStartYPos = 14;
 
 const gameSpeeds = {

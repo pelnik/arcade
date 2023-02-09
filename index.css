@@ -79,8 +79,9 @@ a {
 
 #game-content {
   display: grid;
-  grid-template-columns: repeat(40, 1fr);
+  grid-template-columns: repeat(80, 1fr);
   grid-template-rows: repeat(28, 1fr);
+  padding: 20px;
 }
 
 .gameEnd {
@@ -89,7 +90,6 @@ a {
 
 .box {
   border: solid 1px black;
-
 }
 
 .snake-square {
