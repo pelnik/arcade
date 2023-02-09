@@ -228,6 +228,7 @@ let gameLoop;
 function endGame() {
   stateGameOver = true;
   stateRunning = 'not running';
+  gameContentElement.classList.add('gameEnd');
   clearInterval(gameLoop);
   addStatHistory(points);
   updateStatsElement();
@@ -248,6 +249,7 @@ function runGameLoop() {
 }
 
 function startGame() {
+  gameContentElement.classList.remove('gameEnd');
   gameLoop = setInterval(runGameLoop, gameSpeed);
   stateRunning = 'running';
   stateGameOver = false;

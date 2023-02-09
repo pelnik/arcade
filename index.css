@@ -83,6 +83,10 @@ a {
   grid-template-rows: repeat(28, 1fr);
 }
 
+.gameEnd {
+  filter:blur(1px) grayscale(100%);
+}
+
 .box {
   border: solid 1px black;
 
