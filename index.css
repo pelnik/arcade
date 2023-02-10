@@ -113,10 +113,11 @@ a {
 #game-button-parent {
   display: flex;
   flex-direction: row;
-  gap: 200px;
+  gap: 150px;
   justify-content: center;
   align-items: center;
 }
+
 
 #points {
   display: flex;
@@ -127,6 +128,7 @@ a {
   font-size: 2rem;
   font-weight: bold;
   color: #5DB5E8;
+  box-shadow: 2px 1px 2px gray;
 }
 
 #points.point-shake {
@@ -150,6 +152,14 @@ a {
   font-size: x-large;
 }
 
+#start-button {
+  box-shadow: 2px 1px 2px gray;
+}
+
+#select-difficulty {
+  box-shadow: 2px 1px 2px gray;
+}
+
 #start-button.start-button-not-started {
   background-color: #E49EFF;
 }
@@ -163,6 +173,7 @@ a {
   align-items: center;
   background-color: #EBE0BC;
   gap: 10px;
+  box-shadow: 2px 1px 2px gray;
 }
 
 #stat-content {
