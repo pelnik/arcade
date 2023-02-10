@@ -16,7 +16,6 @@ button, select {
   font-family: inherit;
   appearance: none;
   cursor: pointer;
-  box-shadow: 2px 1px 4px black;
 }
 
 body {
@@ -75,32 +74,32 @@ a {
   padding: 5px;
 }
 
+#home-button {
+  background-color: inherit;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+#home-button img {
+  display: block;
+  height: calc(4rem + 12px);
+  padding: 0.5rem 0px;
+}
+
+
 #header-buttons h1 {
-  font-size: xx-large;
+  font-size: 4rem;
+  font-weight: bolder;
   color:#5DB5E8;
+  padding: 0px;
+  margin: 0px;
 }
 
 #game-header-buttons > * {
   background-color: #5DB5E8;
   color: white;
   padding: 10px;
-}
-
-#home-button {
-  background-color: inherit;
-  position:absolute;
-  top: 10px;
-  left: 10px;
-}
-
-#home-button img {
-  display: block;
-}
-
-#header-buttons p {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 
@@ -113,8 +112,20 @@ a {
 #game-button-parent {
   display: flex;
   flex-direction: row;
-  gap: 25px;
+  gap: 200px;
   justify-content: center;
+  align-items: center;
+}
+
+#points {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 7px 14px;
+  background-color: #EBE0BC;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #5DB5E8;
 }
 
 
@@ -142,6 +153,7 @@ a {
   padding: 5px;
   align-items: center;
   background-color: #EBE0BC;
+  gap: 10px;
 }
 
 #stat-content {
@@ -154,6 +166,7 @@ a {
 
 #stat-label {
   color:#5DB5E8;
+  font-size: 1.5rem;
 }
 
 #stat-content * {
