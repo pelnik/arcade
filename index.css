@@ -16,6 +16,7 @@ button, select {
   font-family: inherit;
   appearance: none;
   cursor: pointer;
+  box-shadow: 2px 1px 4px black;
 }
 
 body {
@@ -55,9 +56,9 @@ a {
 
 #header-parent {
   display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-content:stretch;
+  justify-content: flex-start;
   grid-row: 1;
   grid-column: 1;
   padding: 10px;
@@ -66,11 +67,17 @@ a {
 
 
 #header-buttons {
+  position: relative;
   display: flex;
-  flex-grow: 1;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
   padding: 5px;
+}
+
+#header-buttons h1 {
+  font-size: xx-large;
+  color:#5DB5E8;
 }
 
 #game-header-buttons > * {
@@ -81,6 +88,9 @@ a {
 
 #home-button {
   background-color: inherit;
+  position:absolute;
+  top: 10px;
+  left: 10px;
 }
 
 #home-button img {
@@ -93,9 +103,23 @@ a {
   align-items: center;
 }
 
+
+#full-game-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+#game-button-parent {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  justify-content: center;
+}
+
+
 #game-header-buttons {
   display: flex;
-  flex-grow: 1;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -110,32 +134,49 @@ a {
   background-color: #E49EFF;
 }
 
-
-#stats-parent * {
-  background-color: #5DB5E8;
-  color: white;
-  padding: 5px 10px;
-}
-
-
 #stats-parent {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   flex-direction: column;
   flex-wrap: nowrap;
   padding: 5px;
-  gap: 5px;
+  align-items: center;
+  background-color: #EBE0BC;
 }
 
-#stats-parent > * {
+#stat-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
+
+#stat-label {
+  color:#5DB5E8;
+}
+
+#stat-content * {
+  background-color: #5DB5E8;
+  color: white;
+  padding: 5px 10px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+#stat-content > * {
   text-align: center;
 }
+
 
 #game-wall {
   background-color: #5DB5E8;
   padding: 30px;
   margin: 20px;
   display: flex;
+  flex-grow: 1;
 }
 
 #game-content {
