@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  /* border: solid 1px black; */
+  border: solid 1px black;
   margin: 0px;
   border-radius: 5px;
 }
@@ -83,6 +83,10 @@ a {
   background-color: inherit;
 }
 
+#home-button img {
+  display: block;
+}
+
 #header-buttons p {
   display: flex;
   justify-content: center;
@@ -127,16 +131,15 @@ a {
   background-color: #5DB5E8;
   padding: 30px;
   margin: 20px;
+  display: flex;
 }
 
 #game-content {
   display: grid;
-  grid-template-columns: repeat(80, 1fr);
-  grid-template-rows: repeat(28, 1fr);
-  padding: 20px;
+  grid-template-columns: repeat(40, 1fr);
+  grid-template-rows: repeat(14, 1fr);
   background-color: #78FF72;
-  height: 100%;
-  width: 100%;
+  flex-grow: 1;
 }
 
 .gameEnd {
