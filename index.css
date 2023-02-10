@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  border: solid 1px black;
+  /* border: solid 1px black; */
   margin: 0px;
   border-radius: 5px;
 }
@@ -15,6 +15,7 @@ button, select {
   font-size: inherit;
   font-family: inherit;
   appearance: none;
+  cursor: pointer;
 }
 
 body {
@@ -39,6 +40,7 @@ a {
   padding: 0px;
   height: 100vh;
   width: 100vw;
+  background-color: #78FF72;
 }
 
 #game {
@@ -48,7 +50,6 @@ a {
   grid-template-rows: auto 1fr;
   grid-row: 1;
   grid-column: 1;
-  background-color: #78FF72;
 }
 
 
@@ -72,9 +73,14 @@ a {
   padding: 5px;
 }
 
-#header-buttons button, #header-buttons p, #header-buttons select {
-  background-color: #EBE0BC;
+#game-header-buttons button, #game-header-buttons p, #game-header-buttons select {
+  background-color: #5DB5E8;
+  color: white;
   padding: 10px;
+}
+
+#home-button {
+  background-color: inherit;
 }
 
 #header-buttons p {
@@ -92,9 +98,14 @@ a {
   gap: 15px;
 }
 
+#game-header-buttons {
+  font-size: x-large;
+}
+
 
 #stats-parent * {
-  background-color: #EBE0BC;
+  background-color: #5DB5E8;
+  color: white;
   padding: 5px 10px;
 }
 
@@ -112,11 +123,20 @@ a {
   text-align: center;
 }
 
+#game-wall {
+  background-color: #5DB5E8;
+  padding: 30px;
+  margin: 20px;
+}
+
 #game-content {
   display: grid;
   grid-template-columns: repeat(80, 1fr);
   grid-template-rows: repeat(28, 1fr);
   padding: 20px;
+  background-color: #78FF72;
+  height: 100%;
+  width: 100%;
 }
 
 .gameEnd {
@@ -124,7 +144,7 @@ a {
 }
 
 .box {
-  border: solid 1px black;
+  /* border: solid 1px black; */
 }
 
 .snake-square {
