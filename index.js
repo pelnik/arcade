@@ -28,7 +28,9 @@ const pointsHistory = [];
 const boxMapToPos = {};
 const posMapToBox = {};
 
+const gameWall = document.querySelector('#game-wall');
 const gameContentElement = document.querySelector('#game-content');
+const startButton = document.querySelector('#start-button');
 const pointsElement = document.querySelector('#points');
 const difficultyElement = document.querySelector('#select-difficulty');
 const highestPointsElement = document.querySelector('#highest-points');
@@ -228,7 +230,9 @@ let gameLoop;
 function endGame() {
   stateGameOver = true;
   stateRunning = 'not running';
-  gameContentElement.classList.add('gameEnd');
+  lastKeypress = null;
+  gameWall.classList.add('gameEnd');
+  startButton.classList.add('start-button-not-started');
   clearInterval(gameLoop);
   addStatHistory(points);
   updateStatsElement();
@@ -247,7 +251,8 @@ function runGameLoop() {
 }
 
 function startGame() {
-  gameContentElement.classList.remove('gameEnd');
+  gameWall.classList.remove('gameEnd');
+  startButton.classList.remove('start-button-not-started');
   gameLoop = setInterval(runGameLoop, gameSpeed);
   stateRunning = 'running';
   stateGameOver = false;
@@ -277,7 +282,6 @@ function startHandler() {
   }
 }
 
-const startButton = document.querySelector('#start-button');
 startButton.addEventListener('click', startHandler);
 
 // Event listener setup for difficulty

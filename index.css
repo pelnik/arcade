@@ -73,7 +73,7 @@ a {
   padding: 5px;
 }
 
-#game-header-buttons button, #game-header-buttons p, #game-header-buttons select {
+#game-header-buttons > * {
   background-color: #5DB5E8;
   color: white;
   padding: 10px;
@@ -104,6 +104,10 @@ a {
 
 #game-header-buttons {
   font-size: x-large;
+}
+
+#start-button.start-button-not-started {
+  background-color: #E49EFF;
 }
 
 
