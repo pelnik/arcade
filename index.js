@@ -1,11 +1,11 @@
 import Snake from './Modules/snake.js';
 
 const largeScreenCutoff = 768;
-const numberOfColsForLargeScreen = 40;
+const numberOfColsForLargeScreen = 30;
 const numberOfRowsForLargeScreen = 14;
 const numberOfBoxes = numberOfColsForLargeScreen * numberOfRowsForLargeScreen;
 
-const snakeStartXPos = 20;
+const snakeStartXPos = 15;
 const snakeStartYPos = 7;
 
 const gameSpeeds = {
@@ -14,7 +14,6 @@ const gameSpeeds = {
   Hard: 75,
 };
 
-let stateGameOver = false;
 let stateRunning = 'not running';
 let gameSpeed = gameSpeeds.Medium;
 let stateHasStartedOnce = false;
@@ -157,7 +156,7 @@ function addApple() {
 function generateApples() {
   const randomNum = Math.random();
 
-  if (randomNum <= 0.25 && currentApples.length < maxApples) {
+  if (randomNum <= 0.1 && currentApples.length < maxApples) {
     addApple();
   }
 }
@@ -228,9 +227,7 @@ function clearCurrentPoints() {
 let gameLoop;
 
 function endGame() {
-  stateGameOver = true;
   stateRunning = 'not running';
-  lastKeypress = null;
   gameWall.classList.add('gameEnd');
   startButton.classList.add('start-button-not-started');
   clearInterval(gameLoop);
@@ -253,9 +250,9 @@ function runGameLoop() {
 function startGame() {
   gameWall.classList.remove('gameEnd');
   startButton.classList.remove('start-button-not-started');
+  lastKeypress = null;
   gameLoop = setInterval(runGameLoop, gameSpeed);
   stateRunning = 'running';
-  stateGameOver = false;
   stateHasStartedOnce = true;
 }
 

@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  border: solid 1px black;
+  /* border: solid 1px black; */
   margin: 0px;
   border-radius: 5px;
 }
@@ -140,7 +140,7 @@ a {
 
 #game-content {
   display: grid;
-  grid-template-columns: repeat(40, 1fr);
+  grid-template-columns: repeat(30, 1fr);
   grid-template-rows: repeat(14, 1fr);
   background-color: #78FF72;
   flex-grow: 1;
@@ -152,6 +152,7 @@ a {
 
 .box {
   /* border: solid 1px black; */
+  border-radius: 35%;
 }
 
 .snake-square {
