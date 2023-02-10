@@ -48,29 +48,60 @@ a {
   grid-template-rows: auto 1fr;
   grid-row: 1;
   grid-column: 1;
+  background-color: #92FF8A;
 }
 
 
 #header-parent {
-  background-color: white;
   display: flex;
   flex-direction: row;
   align-content: center;
   justify-content: space-between;
   grid-row: 1;
   grid-column: 1;
+  padding: 10px;
 }
 
+
 #header-buttons {
+  display: flex;
   flex-grow: 1;
+  flex-direction: row;
+  align-items: center;
 }
+
+#header-buttons button, #header-buttons p, #header-buttons select {
+  background-color: #F2E4DA;
+  padding: 10px;
+}
+
+#header-buttons p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-header-buttons {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+
+#stats-parent * {
+  background-color: #F2E4DA;
+}
+
 
 #stats-parent {
   display: flex;
-  justify-content:space-around;
+  justify-content: space-around;
   flex-direction: column;
   flex-wrap: nowrap;
   padding: 5px;
+  gap: 5px;
 }
 
 #stats-parent > * {
@@ -93,7 +124,7 @@ a {
 }
 
 .snake-square {
-  background-color: green;
+  background-color: #A093F5;
 }
 
 .apple-square {
