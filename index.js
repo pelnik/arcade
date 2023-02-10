@@ -168,8 +168,16 @@ function removeApple(index) {
   boxElement.classList.remove('apple-square');
 
   currentApples.splice(index, 1);
+
   points += 1;
   pointsElement.innerText = `Points: ${points}`;
+  pointsElement.classList.add('point-shake');
+  setTimeout(() => {
+    pointsElement.classList.remove('point-shake');
+  },
+  500,
+  );
+
   growthIndicator = 1;
 }
 

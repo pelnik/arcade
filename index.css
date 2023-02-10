@@ -129,6 +129,14 @@ a {
   color: #5DB5E8;
 }
 
+#points.point-shake {
+  animation-name: shake;
+  animation-duration: 0.25s;
+  animation-timing-function: linear;
+  background-color: #E49EFF;
+  color: white;
+}
+
 
 #game-header-buttons {
   display: flex;
