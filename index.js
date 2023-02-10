@@ -199,7 +199,6 @@ function clearApples() {
 }
 
 // Stats handling
-
 function addStatHistory(score) {
   pointsHistory.push(score);
 }
@@ -221,6 +220,7 @@ function updateStatsElement() {
 
 function clearCurrentPoints() {
   points = 0;
+  pointsElement.innerText = `Points: ${points}`;
 }
 
 // Game loop logic
@@ -233,7 +233,6 @@ function endGame() {
   clearInterval(gameLoop);
   addStatHistory(points);
   updateStatsElement();
-  clearCurrentPoints();
 }
 
 function runGameLoop() {
@@ -248,6 +247,7 @@ function runGameLoop() {
 }
 
 function startGame() {
+  clearCurrentPoints();
   gameWall.classList.remove('gameEnd');
   startButton.classList.remove('start-button-not-started');
   lastKeypress = null;
