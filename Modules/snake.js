@@ -42,13 +42,20 @@ export default class Snake {
     }
   }
 
-  moveSnake(direction, growthIndicator) {
+  moveSnake(direction, growthIndicator, lastKeypress) {
     const firstSegment = this.body[0];
     const newSegment = {};
-    let actualDirection = direction;
     const oppositeOfLastMove = this.moveOpposites[this.lastMove];
 
-    if (direction === null || oppositeOfLastMove === direction) {
+    let actualDirection = direction;
+
+    if (direction === null && lastKeypress !== null) {
+      actualDirection = lastKeypress;
+    } else if (direction === null) {
+      actualDirection = this.lastMove;
+    }
+
+    if (oppositeOfLastMove === actualDirection) {
       actualDirection = this.lastMove;
     }
 

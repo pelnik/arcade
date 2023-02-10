@@ -80,6 +80,7 @@ let snake = new Snake(
 
 // Keypress Monitoring logic
 let currentKeypress = null;
+let lastKeypress = null;
 const keypressStack = [];
 const keypressDict = {
   38: 'north',
@@ -92,6 +93,7 @@ function keydownHandler(evt) {
   let direction;
   if (evt.keyCode in keypressDict) {
     direction = keypressDict[evt.keyCode];
+    lastKeypress = keypressDict[evt.keyCode];
   } else {
     return null;
   }
@@ -234,7 +236,7 @@ function endGame() {
 }
 
 function runGameLoop() {
-  const checkGameOver = snake.moveSnake(currentKeypress, growthIndicator);
+  const checkGameOver = snake.moveSnake(currentKeypress, growthIndicator, lastKeypress);
   growthIndicator = 0;
   checkIfAppleCollision(snake);
 
